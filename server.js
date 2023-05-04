@@ -91,7 +91,7 @@ app.delete("/api/notes/:note_ID", (req, res)=> {
         }
         else {
             const notes = JSON.parse(data);
-            const deleteNote = notes.filter((note) => note.ID !== noteId);
+            const deleteNote = notes.filter((note) => note.note_ID !== noteId);
             fs.writeFile('./db/db.json', json.stringify(deleteNote), (err, data) => {
                if (err) {
                 console.log(err);
