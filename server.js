@@ -8,7 +8,6 @@ const { Console } = require('console');
 
 const app = express();
 
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
@@ -24,7 +23,6 @@ app.get('/notes', (req, res) => {
     
 })
 
-// GET /api/notes should read the db.json file and return all saved notes as JSON.
 
 app.post('/api/notes', (req, res) => {
 
@@ -78,15 +76,9 @@ app.get('/api/notes', (req, res) => {
 })
 
 
-// DELETE/api/notes/:id should receive a query parameter containing the id of a note to delete
-// in order to delete a note, you need to read all the notes from the db.json file, remove the note with the given id number, and rewrite the notes to the db.json file.
-
-
 app.delete("/api/notes/:note_ID", (req, res)=> {
    
-    
     const noteId = req.params.note_ID;
-   
 
     fs.readFile('./db/db.json', 'utf8', (err, data) => {
         if (err) {
@@ -105,18 +97,8 @@ app.delete("/api/notes/:note_ID", (req, res)=> {
                 
                }
             });
-            
-
         }
     })
 });
-
-
-
-
-
-
-
-
 
 app.listen(3006, () => console.log('Server on port 3006'));
