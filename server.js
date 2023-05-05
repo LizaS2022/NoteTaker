@@ -101,4 +101,5 @@ app.delete("/api/notes/:note_ID", (req, res)=> {
     })
 });
 
-app.listen(3006, () => console.log('Server on port 3006'));
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => console.log(`App listening on port ${PORT}`));
