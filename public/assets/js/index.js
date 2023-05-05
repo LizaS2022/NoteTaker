@@ -33,23 +33,26 @@ const getNotes = () =>
     },
   });
 
-const saveNote = (note) =>
-  fetch('/api/notes', {
+const saveNote = (note) => {
+  console.log(note)
+  return fetch('/api/notes', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(note),
   });
+}
 
-const deleteNote = (id) =>
-  fetch(`/api/notes/${id}`, {
-    method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    
-  });
+  const deleteNote = (id) => {
+    console.log('Deleting note with id:', id);
+    return fetch(`/api/notes/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+  };
 
 const renderActiveNote = () => {
   hide(saveNoteBtn);
@@ -84,7 +87,9 @@ const handleNoteDelete = (e) => {
   e.stopPropagation();
 
   const note = e.target;
-  const noteId = JSON.parse(note.parentElement.getAttribute('data-note')).id;
+  console.log(note)
+  const noteId = JSON.parse(note.parentElement.getAttribute('data-note')).note_ID;
+  console.log(note.parentElement)
 
   if (activeNote.id === noteId) {
     activeNote = {};
@@ -127,7 +132,7 @@ const renderNoteList = async (notes) => {
   let noteListItems = [];
 
   // Returns HTML element with or without a delete button
-  const createLi = (text, delBtn = true) => {
+  const createLi = (text, id, delBtn = true) => {
     const liEl = document.createElement('li');
     liEl.classList.add('list-group-item');
 

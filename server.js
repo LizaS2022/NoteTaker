@@ -61,7 +61,7 @@ app.post('/api/notes', (req, res) => {
     });
     
     }
-   
+    res.json('Information posted!');
 });
 
 app.get('/api/notes', (req, res) => {
@@ -83,22 +83,26 @@ app.get('/api/notes', (req, res) => {
 
 
 app.delete("/api/notes/:note_ID", (req, res)=> {
+   
+    
     const noteId = req.params.note_ID;
-    console.log(noteId);
+   
+
     fs.readFile('./db/db.json', 'utf8', (err, data) => {
         if (err) {
             console.log(err);
         }
         else {
             const notes = JSON.parse(data);
-            const deleteNote = notes.filter((note) => note.noteId !== noteId);
+            const deleteNote = notes.filter((note) => note.note_ID !== noteId);
             fs.writeFile('./db/db.json', JSON.stringify(deleteNote), (err, data) => {
                if (err) {
                 console.log(err);
                }
                else {
+                res.json(deleteNote);
                 console.log("a note was deleted");
-                res.sendFile('/api/notes/', JSON.stringify(deleteNote));
+                
                }
             });
             
@@ -115,4 +119,4 @@ app.delete("/api/notes/:note_ID", (req, res)=> {
 
 
 
-app.listen(3002, () => console.log('Server on port 3002'));
+app.listen(3006, () => console.log('Server on port 3006'));
